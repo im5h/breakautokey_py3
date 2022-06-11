@@ -8,7 +8,7 @@ class ngram_score(object):
     def __init__(self,ngramfile,sep=' '):
         ''' load a file containing ngrams and counts, calculate log probabilities '''
         self.ngrams = {}
-        for line in file(ngramfile):
+        for line in open(ngramfile):
             key,count = line.split(sep) 
             self.ngrams[key] = int(count)
         self.L = len(key)
