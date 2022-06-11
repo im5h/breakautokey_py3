@@ -12,9 +12,9 @@ class ngram_score(object):
             key,count = line.split(sep) 
             self.ngrams[key] = int(count)
         self.L = len(key)
-        self.N = sum(self.ngrams.itervalues())
+        self.N = sum(self.ngrams.values())
         #calculate log probabilities
-        for key in self.ngrams.keys():
+        for key in list(self.ngrams.keys()):
             self.ngrams[key] = log10(float(self.ngrams[key])/self.N)
         self.floor = log10(0.01/self.N)
 
@@ -22,7 +22,7 @@ class ngram_score(object):
         ''' compute the score of text '''
         score = 0
         ngrams = self.ngrams.__getitem__
-        for i in xrange(len(text)-self.L+1):
+        for i in range(len(text)-self.L+1):
             if text[i:i+self.L] in self.ngrams: score += ngrams(text[i:i+self.L])
             else: score += self.floor          
         return score
